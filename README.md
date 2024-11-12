@@ -1,5 +1,5 @@
 # Personal Portfolio 🔥
-> https://aryankitj.github.io/
+> https://aryankitj.github.io/My-Protfolio/
 
 :star: Star me on GitHub — it helps!
 
