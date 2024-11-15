@@ -5,15 +5,15 @@
 
 ### Website Preview
 #### Home Page
-<img src="output1.png" width="900">
+<img src="Assets/output/output1.png" width="900">
 
 
 #### Skill Page
-<img src="output2.png" width="900">
+<img src="Assets/output/output2.png" width="900">
 
 
 #### Contact Page
-<img src="output3.png" width="900">
+<img src="Assets/output/output3.png" width="900">
   
 
 
