@@ -45,7 +45,7 @@ const contactSubmitAfter = document.querySelector('.contact-submit-after');
 const csaOK = document.querySelector('.csa-ok');
 
 
-const contactForm = document.querySelector('.contact-form');
+const contactForm = document.getElementById('contact-form');
 const nameInput = document.getElementById('name');
 const emailInput = document.getElementById('email');
 const messageInput = document.getElementById('message');
