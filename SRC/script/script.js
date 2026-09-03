@@ -70,11 +70,12 @@ if (csaOK) {
 
 // Function to validate the form
 function validateForm(event) {
-	event.preventDefault(); // Prevent the form from submitting
-	let isValid = true;
-	emailIsValid = true;
-	nameIsValid = true;
-	messageIsValid = true;
+    event.preventDefault();
+
+    let isValid = true;
+    let emailIsValid = true;
+    let nameIsValid = true;
+    let messageIsValid = true;
 
 	// Check if Name field is empty
 	if (nameInput.value.trim() === '') {
@@ -131,39 +132,45 @@ if (contactForm) {
 
 
 
-function sendMail() {
+async function sendMail() {
 
-	
-	contactSubmitAfter.classList.add('show');
-	formSection.classList.add('hide');
-	contactSection.classList.add('csa-cs');
-	contactForm.classList.add('csa-cf');
-	
+    const formData = new FormData(contactForm);
 
-	// var params = {
-	// 	name: document.getElementById('name').value,
-	// 	email: document.getElementById('email').value,
-	// 	message: document.getElementById('message').value
-	// }
+    try {
+        const response = await fetch(contactForm.action, {
+            method: "POST",
+            body: formData,
+            headers: {
+                "Accept": "application/json"
+            }
+        });
 
-	// const serviceID = "service_evf2wim";
-	// const templateID = "template_v085uvl";
+        if (response.ok) {
 
-	// emailjs.send(serviceID, templateID, params)
-	// 	.then(
-	// 		res => {
-	// 			document.getElementById('name').value = "";
-	// 			document.getElementById('email').value = "";
-	// 			document.getElementById('message').value = "";
+            // Clear form fields
+            nameInput.value = "";
+            emailInput.value = "";
+            messageInput.value = "";
 
-	// 			contactSubmitAfter.classList.add('show');
-	// 			formSection.classList.add('hide');
-	// 			contactSection.classList.add('csa-cs');
-	// 			contactForm.classList.add('csa-cf');
+            // Show success message
+            contactSubmitAfter.classList.add('show');
+            formSection.classList.add('hide');
+            contactSection.classList.add('csa-cs');
+            contactForm.classList.add('csa-cf');
 
-	// 		}
-	// 	)
-	// 	.catch((error) => {
-	// 		console.log(error);
-	// 	})
+        } else {
+            throw new Error("Form submission failed");
+        }
+
+    } catch (error) {
+
+        console.error("Error sending message:", error);
+
+        // Stop loading animation
+        contactButton.classList.remove('loading');
+        contactLoad.classList.remove('show');
+        submitText.classList.remove('hide');
+
+        alert("Something went wrong. Please try again.");
+    }
 }
