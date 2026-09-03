@@ -112,9 +112,7 @@ function validateForm(event) {
 		contactButton.classList.add('loading');
 		contactLoad.classList.add('show');
 		submitText.classList.add('hide');
-		setTimeout(function () {
-			sendMail();
-		}, 2000);
+		sendMail();
 	}
 }
 
@@ -137,6 +135,7 @@ async function sendMail() {
     const formData = new FormData(contactForm);
 
     try {
+
         const response = await fetch(contactForm.action, {
             method: "POST",
             body: formData,
@@ -147,10 +146,15 @@ async function sendMail() {
 
         if (response.ok) {
 
-            // Clear form fields
+            // Clear form
             nameInput.value = "";
             emailInput.value = "";
             messageInput.value = "";
+
+            // Stop loading animation
+            contactButton.classList.remove('loading');
+            contactLoad.classList.remove('show');
+            submitText.classList.remove('hide');
 
             // Show success message
             contactSubmitAfter.classList.add('show');
@@ -159,18 +163,21 @@ async function sendMail() {
             contactForm.classList.add('csa-cf');
 
         } else {
-            throw new Error("Form submission failed");
+
+            throw new Error("Formspree rejected the request");
+
         }
 
     } catch (error) {
 
-        console.error("Error sending message:", error);
+        console.error("Error:", error);
 
         // Stop loading animation
         contactButton.classList.remove('loading');
         contactLoad.classList.remove('show');
         submitText.classList.remove('hide');
 
-        alert("Something went wrong. Please try again.");
+        alert("Message could not be sent. Please try again.");
+
     }
 }
